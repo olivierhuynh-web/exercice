@@ -3,22 +3,22 @@ import { useRef, useEffect } from 'react';
 import Image from 'next/image';
 
 import styles from './Hero.module.scss';
-
 import { titleAnimation, textAnimation, fadeInOverlay } from './animations';
 
 const Hero = () => {
   const overlayRef = useRef(null);
   const titleRef = useRef(null);
-  const textRef = useRef([]);
+  const textRefs = useRef([]);
 
   useEffect(() => {
     titleAnimation(titleRef.current);
-    textAnimation(textRef.current);
+    textAnimation(textRefs.current);
     fadeInOverlay(overlayRef.current);
   }, []);
+
   return (
     <section className={styles.hero}>
-      <div className={styles.hero__overlay} ref={overlayRef}></div>
+      <div ref={overlayRef} className={styles.hero__overlay}></div>
       <Image
         sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
         priority
@@ -35,23 +35,23 @@ const Hero = () => {
         </div>
         <p className={styles.hero__text}>
           <span>
-            <span ref={(el) => textRef.current.push(el)}>
+            <span ref={(text) => textRefs.current.push(text)}>
               Introducing Re:Active: a technical women&apos;s workout set
               blending
             </span>
           </span>
           <span>
-            <span ref={(el) => textRef.current.push(el)}>
+            <span ref={(text) => textRefs.current.push(text)}>
               style and performance.Elevate your fitness with confidence and
             </span>
           </span>
           <span>
-            <span ref={(el) => textRef.current.push(el)}>
+            <span ref={(text) => textRefs.current.push(text)}>
               grace. Stay cool and dry with moisture-wicking fabric. Move freely
             </span>
           </span>
           <span>
-            <span ref={(el) => textRef.current.push(el)}>
+            <span ref={(text) => textRefs.current.push(text)}>
               with four-way stretch and a flattering high-waisted design.
             </span>
           </span>

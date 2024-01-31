@@ -6,6 +6,10 @@
     box-sizing: border-box;
 }
 
+* {
+    will-change: transform;
+  }
+
 html {
     font-size: calc(100vw / 1512 * 10);
 }

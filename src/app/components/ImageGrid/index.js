@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import styles from './ImageGrid.module.scss';
 import {
+  introAnimation,
   setInitialStates,
   moveSideImages,
   scaleCenterImage,
@@ -10,25 +11,28 @@ import {
 
 import { useRef, useEffect } from 'react';
 
-import { gsap } from 'gsap';
-
 const ImageGrid = ({ timeline }) => {
-  const leftImagesRef = useRef(null);
+  const leftImagesRef = useRef([]);
   const centerImageRef = useRef(null);
-  const rightImagesRef = useRef(null);
-
+  const rightImagesRef = useRef([]);
   const centerImageWrapperRef = useRef(null);
   const centerImageTitleRef = useRef(null);
 
   useEffect(() => {
+    introAnimation(
+      leftImagesRef.current,
+      rightImagesRef.current,
+      centerImageWrapperRef.current
+    );
+
     timeline &&
       timeline
         .add(setInitialStates(centerImageRef.current))
         .add(moveSideImages(leftImagesRef.current, rightImagesRef.current))
         .add(
           scaleCenterImage(
-            centerImageRef.current,
-            centerImageWrapperRef.current
+            centerImageWrapperRef.current,
+            centerImageRef.current
           ),
           '<'
         )
@@ -37,7 +41,10 @@ const ImageGrid = ({ timeline }) => {
   return (
     <section className={styles.imageGrid}>
       <div className={styles.imageGrid__inner}>
-        <div className={styles.imageGrid__imageWrapper} ref={leftImagesRef}>
+        <div
+          className={styles.imageGrid__imageWrapper}
+          ref={(image) => leftImagesRef.current.push(image)}
+        >
           <Image
             sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
             priority
@@ -76,7 +83,10 @@ const ImageGrid = ({ timeline }) => {
             }}
           />
         </div>
-        <div className={styles.imageGrid__imageWrapper} ref={rightImagesRef}>
+        <div
+          className={styles.imageGrid__imageWrapper}
+          ref={(image) => rightImagesRef.current.push(image)}
+        >
           <Image
             sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
             priority
