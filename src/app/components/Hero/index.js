@@ -1,6 +1,7 @@
 'use client';
 import { useRef, useEffect } from 'react';
 import Image from 'next/image';
+import gsap from 'gsap';
 
 import styles from './Hero.module.scss';
 import { titleAnimation, textAnimation, fadeInOverlay } from './animations';
@@ -9,8 +10,11 @@ const Hero = () => {
   const overlayRef = useRef(null);
   const titleRef = useRef(null);
   const textRefs = useRef([]);
+  const image = useRef(null);
 
   useEffect(() => {
+    gsap.set(image.current, { opacity: 1 }); // Définir l'opacité initiale à 0
+
     titleAnimation(titleRef.current);
     textAnimation(textRefs.current);
     fadeInOverlay(overlayRef.current);
@@ -26,6 +30,7 @@ const Hero = () => {
         className={styles.hero__image}
         src='/images/practice_3.jpg'
         alt=''
+        ref={image}
       />
       <div className={styles.hero__content}>
         <div className={styles.hero__titleWrapper}>
