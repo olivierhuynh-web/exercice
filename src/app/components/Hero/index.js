@@ -13,7 +13,8 @@ const Hero = () => {
   const image = useRef(null);
 
   useEffect(() => {
-    gsap.set(image.current, { opacity: 1 }); // Définir l'opacité initiale à 0
+    // gsap.set(overlayRef.current, { opacity: 0 });
+    gsap.set(image.current, { autoAlpha: 1 }); // Définir l'opacité initiale à 0
 
     titleAnimation(titleRef.current);
     textAnimation(textRefs.current);
